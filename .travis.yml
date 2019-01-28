@@ -1,5 +1,17 @@
 sudo: required
+
 services:
     - docker
+    
 script:
-    - docker built -t react-app .
+    - docker build -t mhanafy/react-example:2 .
+    - docker images mhanafy/react-example:2
+
+before_deploy:
+    - docker login -u mhanafy92 -p mostapc
+
+deploy:
+    provider: script
+    script: docker push mhanafy/react-example:2
+    on:
+        branch: master
